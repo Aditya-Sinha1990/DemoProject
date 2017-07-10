@@ -16,11 +16,11 @@ pipeline {
   tools {
     // Here we have pairs of tool symbols (not all tools have symbols, so if you
     // try to use one from a plugin you've got installed and get an error and the 
-    // tool isn't listed in the possible values, open a JIRA against that tool!)
+    // tool isn't listed in the possible values!)
     // and installations configured in your Jenkins master's tools configuration.
     jdk "jdk8"
     // Uh-oh, this is going to cause a validation issue! There's no configured
-    // maven tool named "mvn3.3.8"!
+    // maven tool named "mvn3.5.0"!
     maven "mvn3.5.0"
   }
   
@@ -30,9 +30,8 @@ pipeline {
     // identifier, you'll get an error at validation time.
     // Right now, you can't do more complicated Groovy expressions or nesting of
     // other env vars in environment variable values, but that will be possible
-    // when https://issues.jenkins-ci.org/browse/JENKINS-41748 is merged and
-    // released.
-    FOO = "BAR"
+    
+    ENV = "TEST"
   }
   
   stages {
@@ -52,7 +51,7 @@ pipeline {
           
           // This'll output 3.3.3, since that's the Maven version we
           // configured above. Well, once we fix the validation error!
-          sh "mvn -version" 
+          bat "mvn -version" 
         }
       }
       
@@ -78,7 +77,7 @@ pipeline {
       
       steps {
         echo "This time, the Maven version should be 3.3.9"
-        sh "mvn -version"
+        bat "mvn -version"
       }
     }
     
@@ -113,15 +112,15 @@ pipeline {
     }
     
     success {
-      mail(from: "bob@example.com", 
-           to: "steve@example.com", 
+      mail(from: "manee2k6@gmail.com", 
+           to: "manee2k6@gmail.com", 
            subject: "That build passed.",
            body: "Nothing to see here")
     }
 
     failure {
-      mail(from: "bob@example.com", 
-           to: "steve@example.com", 
+      mail(from: "manee2k6@gmail.com", 
+           to: "manee2k6@gmail.com"", 
            subject: "That build failed!", 
            body: "Nothing to see here")
     }
